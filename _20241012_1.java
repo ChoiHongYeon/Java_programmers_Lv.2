@@ -7,23 +7,15 @@ class Solution
     public int solution(String s)
     {
 
-        List<String> list = new ArrayList<>();
+        Stack<String> stack = new Stack<>();
         for (int i = 0; i < s.length(); i++) {
-            list.add(String.valueOf(s.charAt(i)));
+            if (!stack.isEmpty() && stack.peek().equals(String.valueOf(s.charAt(i))))
+                stack.pop();
+            else
+                stack.push(String.valueOf(s.charAt(i)));
         }
 
-        int n = 0;
-        while (n < list.size()) {
-            if (n + 1 < list.size() && list.get(n).equals(list.get(n + 1))) {
-                list.remove(n);
-                list.remove(n);
-                if (n > 0)
-                    n--;
-            } else
-                n++;
-        }
-
-        return list.isEmpty() ? 1 : 0;
+        return stack.isEmpty() ? 1 : 0;
 
     }
 }
