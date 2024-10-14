@@ -6,29 +6,14 @@ class Solution {
     public int solution(int n) {
 
         int answer = 0;
-        Deque<Integer> location = new ArrayDeque<>();
-        Deque<Integer> jump = new ArrayDeque<>();
 
-        location.add(n);
-        jump.add(0);
-
-        while (!location.isEmpty()) {
-
-            int L = location.removeFirst();
-            int J = jump.removeFirst();
-
-            if (L == 0) {
-                answer = J;
-                break;
-            } else {
-                if (L % 2 == 0) {
-                    location.addLast(L / 2);
-                    jump.addLast(J);
-                }
-                location.addLast(L - 1);
-                jump.addLast(J + 1);
+        while (n > 0) {
+            if (n % 2 == 0)
+                n /= 2;
+            else {
+                n--;
+                answer++;
             }
-
         }
 
         return answer;
