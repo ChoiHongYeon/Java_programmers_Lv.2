@@ -7,39 +7,27 @@ class Solution {
 
         int answer = 0;
         Deque<Integer> location = new ArrayDeque<>();
-        Deque<Integer> remain_jump = new ArrayDeque<>();
+        Deque<Integer> jump = new ArrayDeque<>();
 
-        for (int i = 1; i < n + 1; i++) {
+        location.add(n);
+        jump.add(0);
 
-            location.add(1);
-            remain_jump.add(i - 1);
+        while (!location.isEmpty()) {
 
-            while (!location.isEmpty()) {
+            int L = location.removeFirst();
+            int J = jump.removeFirst();
 
-                int L = location.removeFirst();
-                int R = remain_jump.removeFirst();
-
-                if (R == 0) {
-                    if (L == n) {
-                        answer = i;
-                        break;
-                    } else if (L * 2 <= n) {
-                        location.addLast(L * 2);
-                        remain_jump.addLast(R);
-                    }
-                } else {
-                    location.addLast(L + 1);
-                    remain_jump.addLast(R - 1);
-                    if (L * 2 < n) {
-                        location.addLast(L * 2);
-                        remain_jump.addLast(R);
-                    }
-                }
-
-            }
-
-            if (answer != 0)
+            if (L == 0) {
+                answer = J;
                 break;
+            } else {
+                if (L % 2 == 0) {
+                    location.addLast(L / 2);
+                    jump.addLast(J);
+                }
+                location.addLast(L - 1);
+                jump.addLast(J + 1);
+            }
 
         }
 
